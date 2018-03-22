@@ -28,7 +28,7 @@ Make sure you [enabled adb debugging][enable-adb] on your device(s).
 [platform-tools]: https://developer.android.com/studio/releases/platform-tools.html
 [platform-tools-windows]: https://dl.google.com/android/repository/platform-tools-latest-windows.zip
 
-The client requires _FFmpeg_ and _LibSDL2_.
+The client requires _FFmpeg_, _LibSDL2_ and _LibUSB_.
 
 
 ## Build and install
@@ -43,12 +43,12 @@ Install the required packages from your package manager.
 
 ```bash
 # runtime dependencies
-sudo apt install ffmpeg libsdl2-2.0.0
+sudo apt install ffmpeg libsdl2-2.0.0 libusb-1.0-0
 
 # client build dependencies
 sudo apt install make gcc pkg-config meson \
                  libavcodec-dev libavformat-dev libavutil-dev \
-                 libsdl2-dev
+                 libsdl2-dev libusb-1.0-0-dev
 
 # server build dependencies
 sudo apt install openjdk-8-jdk
@@ -103,7 +103,8 @@ pacman -S mingw-w64-x86_64-SDL2 \
 pacman -S mingw-w64-x86_64-make \
           mingw-w64-x86_64-gcc \
           mingw-w64-x86_64-pkg-config \
-          mingw-w64-x86_64-meson
+          mingw-w64-x86_64-meson \
+          mingw-w64-x86_64-libusb
 ```
 
 Java (>= 7) is not available in MSYS2, so if you plan to build the server,
@@ -124,7 +125,7 @@ Use [Homebrew] to install the packages:
 brew install sdl2 ffmpeg
 
 # client build dependencies
-brew install gcc pkg-config meson
+brew install gcc pkg-config meson libusb
 ```
 
 Java (>= 7) is not available in Homebrew, so if you plan to build the server,
@@ -237,6 +238,12 @@ If several devices are listed in `adb devices`, you must specify the _serial_:
 
 ```bash
 scrcpy -s 0123456789abcdef
+```
+
+To enable audio forwarding:
+
+```bash
+scrcpy -a
 ```
 
 To run without installing:
